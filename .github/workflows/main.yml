@@ -2,12 +2,13 @@ name: Run script every 10 minutes
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/10 * * * *"  # Every 10 minutes (UTC)
   workflow_dispatch:
 
 jobs:
   run-python:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -16,7 +17,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-          run: pip install -r requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Run Python workflow script
         env:
